@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Responses</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #007BFF; color: white; }
+    </style>
+</head>
+<body>
+
+<h1>Survey Responses</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Engagement</th>
+            <th>Communication</th>
+            <th>Resources</th>
+            <th>Track</th>
+            <th>Satisfaction</th>
+            <th>Likes</th>
+            <th>Improvements</th>
+        </tr>
+    </thead>
+    <tbody id="responseTable"></tbody>
+</table>
+
+<script>
+async function fetchResponses() {
+    const response = await fetch("https://my-github-backend.onrender.com/responses");
+    const data = await response.json();
+
+    const table = document.getElementById("responseTable");
+    table.innerHTML = "";
+
+    data.forEach(response => {
+        const row = `
+            <tr>
+                <td>${response.id}</td>
+                <td>${response.engagement}</td>
+                <td>${response.communication}</td>
+                <td>${response.resources}</td>
+                <td>${response.track}</td>
+                <td>${response.satisfaction}</td>
+                <td>${response.likes}</td>
+                <td>${response.improvements}</td>
+            </tr>
+        `;
+        table.innerHTML += row;
+    });
+}
+
+fetchResponses();
+</script>
+
+</body>
+</html>
